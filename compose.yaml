@@ -1,0 +1,32 @@
+networks:
+  multitenancy_network:
+    driver: bridge
+
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_DB=multitenancy
+      - POSTGRES_USER=multitenancy
+      - POSTGRES_PASSWORD=multitenancy
+    ports:
+      - '5432:5432'
+    networks:
+      - multitenancy_network
+
+  keycloak:
+    image: keycloak/keycloak:latest
+    command: start-dev
+    environment:
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://postgres/multitenancy
+      - KC_DB_USERNAME=multitenancy
+      - KC_DB_PASSWORD=multitenancy
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres
+    networks:
+      - multitenancy_network
