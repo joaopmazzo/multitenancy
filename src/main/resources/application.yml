@@ -4,18 +4,11 @@ server:
 spring:
     application:
         name: multitenancy
-#    security:
-#        oauth2:
-#            resourceserver:
-#                jwt:
-#                    issuer-uri: http://localhost:8080/realms/multitenancy
-#                    jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
 
-#springdoc:
-#    swagger-ui:
-#        oauth:
-#            client-id: multitenancy-hom
-#
+springdoc:
+    swagger-ui:
+        oauth:
+            client-id: multitenancy-hom
 
 jwt:
     auth:
@@ -24,4 +17,3 @@ jwt:
                 resource-id: multitenancy-hom
                 principal-attribute: principal_username
                 tenant-id: "tenanatId"
-
