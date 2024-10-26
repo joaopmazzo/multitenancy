@@ -1,12 +1,7 @@
 package br.com.joaopmazzo.multitenancy.security;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.keycloak.KeycloakSecurityContext;
-import org.keycloak.adapters.KeycloakDeployment;
-import org.keycloak.adapters.KeycloakDeploymentBuilder;
-import org.keycloak.adapters.jetty.core.AbstractKeycloakJettyAuthenticator;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
