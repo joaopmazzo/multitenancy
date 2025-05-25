@@ -4,16 +4,35 @@ server:
 spring:
     application:
         name: multitenancy
+    flyway:
+        enabled: false
+    jpa:
+        properties:
+            hibernate:
+                hbm2ddl:
+                    auto: none
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+        show-sql: true
+        defer-datasource-initialization: true
+
+security:
+    oauth2:
+        issuer: ${ISSUER_URI:http://localhost:8080/realms/multitenant-app}
 
 springdoc:
     swagger-ui:
         oauth:
-            client-id: multitenancy-hom
+            client-id: multitenant-app-backend
 
-jwt:
-    auth:
-        issuers:
-            multitenancy-hom:
-                resource-id: multitenancy-hom
-                principal-attribute: principal_username
-                tenant-id: "tenanatId"
+tenants:
+    configs:
+        client_A:
+            url: jdbc:postgresql://localhost:5432/client_A
+            username: multitenancy
+            password: multitenancy
+            driver-class-name: org.postgresql.Driver
+        client_B:
+            url: jdbc:postgresql://localhost:5432/client_B
+            username: multitenancy
+            password: multitenancy
+            driver-class-name: org.postgresql.Driver
