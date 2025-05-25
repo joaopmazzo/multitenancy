@@ -13,9 +13,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    public static final String ADMIN = "admin";
-    public static final String USER = "user";
-
     private static final String[] PERMIT_ALL_LIST = {
             "/swagger-ui/**",
             "/v3/api-docs/**",

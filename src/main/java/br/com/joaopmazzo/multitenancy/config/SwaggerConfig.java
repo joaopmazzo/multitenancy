@@ -4,14 +4,16 @@ import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SwaggerConfig {
 
-    private static final String authServerUrl = "http://localhost:8080";
-    private static final String realm = "multitenancy";
+    @Value("${security.oauth2.issuer}")
+    private String issuerUri;
+
     private static final String OAUTH_SCHEME_NAME = "my_oAuth_security_schema";
 
     @Bean
@@ -19,8 +21,8 @@ public class SwaggerConfig {
         return new OpenAPI().components(new Components()
                         .addSecuritySchemes(OAUTH_SCHEME_NAME, createOAuthScheme()))
                 .addSecurityItem(new SecurityRequirement().addList(OAUTH_SCHEME_NAME))
-                .info(new Info().title("Todos Management Service")
-                        .description("A service providing todos.")
+                .info(new Info().title("Multitenant Service")
+                        .description("A service for studying multitenant concepts.")
                         .version("1.0"));
     }
 
@@ -37,7 +39,7 @@ public class SwaggerConfig {
 
     private OAuthFlow createAuthorizationCodeFlow() {
         return new OAuthFlow()
-                .authorizationUrl(authServerUrl + "/realms/" + realm + "/protocol/openid-connect/auth")
+                .authorizationUrl(issuerUri + "/protocol/openid-connect/auth")
                 .scopes(new Scopes().addString("read_access", "read data")
                         .addString("write_access", "modify data"));
     }

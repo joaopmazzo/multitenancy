@@ -23,7 +23,7 @@ public class TenantRequestInterceptor implements AsyncHandlerInterceptor {
         Jwt jwt = (Jwt) authentication.getPrincipal();
 
         return Optional
-                .ofNullable(jwt.getClaims().get("azp"))
+                .ofNullable(jwt.getClaims().get("tenant_id"))
                 .map(tenant -> {
                     TenantContext.setCurrentTenant(tenant.toString());
                     return true;

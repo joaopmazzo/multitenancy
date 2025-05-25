@@ -9,10 +9,10 @@ import java.util.Optional;
 
 @Component
 @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class TenantIdentifierResolver implements CurrentTenantIdentifierResolver {
+public class TenantIdentifierResolver implements CurrentTenantIdentifierResolver<String> {
 
     @Override
-    public Object resolveCurrentTenantIdentifier() {
+    public String resolveCurrentTenantIdentifier() {
         return Optional.ofNullable(TenantContext.getCurrentTenant()).orElse(TenantContext.DEFAULT_TENANT_ID);
     }
 
